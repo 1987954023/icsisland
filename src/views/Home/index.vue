@@ -11,12 +11,27 @@
         <div class="header-search"></div>
       </a>
     </header>
+    <Swiper  :autoplay="2000" :loop="true">
+      <Swiperitem>1</Swiperitem>
+      <Swiperitem>2</Swiperitem>
+      <Swiperitem>3</Swiperitem>
+    </Swiper>
   </div>
 </template>
 
 <script>
+import { Swiper, Swiperitem } from '@/components/Swiper'
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: {
+    Swiper,
+    Swiperitem
+  },
+  methods: {
+    changHandler (payload) {
+      // console.log(payload)
+    }
+  }
 }
 </script>
 
@@ -52,4 +67,5 @@ export default {
     }
   }
 }
+
 </style>
