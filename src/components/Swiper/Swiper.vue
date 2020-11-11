@@ -59,8 +59,6 @@ export default {
 .swiper-container{
   width: 100%;
   height: 180px;
-border: 1px solid red;
-background: red;
 }
 </style>
 <style lang="scss">
