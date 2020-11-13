@@ -70,7 +70,7 @@ export default {
     //     console.log(1)
     //   })
     getBanner().then(res => {
-      console.log(res)
+      // console.log(res)
       if (res.code === 200) {
         this.list = res.info
       } else {

@@ -4,7 +4,7 @@ import axios from 'axios'
 const instance = axios.create({
   baseURL: 'http://localhost:8080',
   // 设置超时时间
-  timeout: 3000
+  timeout: 5000
   // headers: {'X-Custom-Header': 'foobar'}
 })
 // 添加请求拦截器

@@ -13,6 +13,7 @@ import Register from '../views/Resigter'
 import Search from '../views/Search'
 import SearchResult from '../views/SearchResult'
 import Vip from '../views/Vip'
+import City from '../views/City'
 Vue.use(VueRouter)
 const router = new VueRouter({
   routes: [
@@ -43,7 +44,8 @@ const router = new VueRouter({
     { path: '/search', component: Search },
     { path: '/searchResult', component: SearchResult },
     { path: '/vip', component: Vip },
-    { path: '/', redirect: '/home' }
+    { path: '/', redirect: '/home' },
+    { path: '/city', component: City }
 
   ]
 })

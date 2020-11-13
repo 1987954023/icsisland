@@ -15,6 +15,13 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
+      },
+      '/city': {
+        target: 'https://m.maizuo.com',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/city': ''
+        }
       }
     }
   }
