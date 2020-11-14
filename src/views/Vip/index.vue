@@ -32,7 +32,7 @@ export default {
       getVip().then(res => {
         if (res.code === 200) {
           this.viplist = JSON.parse(unformat(res.info)).comicsList
-          console.log(this.viplist)
+          // console.log(this.viplist)
         } else {
           alert(res.code_msg)
         }
