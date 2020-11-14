@@ -1,13 +1,15 @@
 <template>
   <div class='header'>
     <header-type :title="$route.query.name" :isShow="false"></header-type>
-     <section class="cartoon-list search-result-list">
+     <section class="cartoon-list search-result-list" ref='search'>
+       <div>
         <div class="list-item" v-for='item in searchbookList' :key='item.id'>
-          <div class="item-pic" :style="`background-image:url(${item.coverurl})`"></div>
+          <div class="item-pic" v-lazy:background-image="item.coverurl"></div>
           <div class="item-info">
             <div class="info-book font-30">{{item.name}}</div>
             <div class="info-author font-26">作者：{{item.author}}</div>
             <div class="info-fans font-26">更新：{{item.lastpartname}}</div>
+          </div>
           </div>
         </div>
       </section>
@@ -17,6 +19,7 @@
 <script>
 import HeaderType from '../../components/HeaderType/index.vue'
 import { searchbookauthor } from '../../api/cartoon'
+import BScroll from 'better-scroll'
 export default {
   name: 'SearchResult',
   data () {
@@ -44,6 +47,13 @@ export default {
   created () {
     this.searchbookauthors(this.$route.query.name)
     console.log(this.$route.query.name)
+  },
+  mounted () {
+  /*eslint-disable*/
+  this.bscroll=new BScroll(this.$refs.search,{
+    click:true
+  })
+   /* eslint-enable */
   }
 }
 </script>
@@ -57,7 +67,7 @@ export default {
     flex: 1;
     padding-left: 10px;
     margin: 10px 0px;
-    overflow: auto;
+     overflow: auto;
     .list-item{
       display: flex;
       box-sizing: border-box;

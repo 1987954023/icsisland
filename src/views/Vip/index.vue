@@ -1,7 +1,7 @@
 <template>
   <div class='header'>
     <header-type title='Vip专区' ></header-type>
-    <div class='main'>
+    <div class='main' ref='vip'>
     <cartoon-list :list='list'></cartoon-list>
     </div>
   </div>
@@ -12,6 +12,7 @@ import HeaderType from '@/components/HeaderType'
 import CartoonList from '@/components/CartoonList'
 import { unformat } from '@/apiHelp'
 import { getVip } from '@/api/cartoon'
+import BScroll from 'better-scroll'
 export default {
   name: 'Vip',
   data () {
@@ -52,6 +53,13 @@ export default {
         }
       })
     }
+  },
+  mounted () {
+    /*eslint-disable*/
+  this.bscroll=new BScroll(this.$refs.vip,{
+    click:true
+  })
+   /* eslint-enable */
   }
 }
 </script>

@@ -3,6 +3,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './assets/styles/base.scss'
+import VueLazyload from 'vue-lazyload'
+
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: require('./assets/logo.png'),
+  loading: require('./assets/loading.gif'),
+  attempt: 1
+})
 Vue.config.productionTip = false
 
 // 数字变成带单位的数字

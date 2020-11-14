@@ -1,15 +1,17 @@
 <template>
   <div class = 'page-home'>
+    <router-link to='/city' class='font-24' :style="{color:'red',fontWeight:'bold'}"  >{{this.$store.getters['city/curCityName']}}</router-link>
     <indexheader></indexheader>
-    <div class='main'>
-    <Swiper  :autoplay="2000" :loop="true" class="swiper" v-if="list.length>0">
+    <div class='main' ref='home'>
+      <div>
+      <Swiper  :autoplay="2000" :loop="true" class="swiper" v-if="list.length>0">
       <Swiperitem v-for="item in list" :key="item.id">
-        <img  :src='item.imageurl'  />
+        <img  v-lazy='item.imageurl'  />
       </Swiperitem>
-    </Swiper>
-  <indexnav></indexnav>
-   <index-main v-for="item in indexList" :key="item.specialid" :info="item"></index-main>
-    <div class="my-icp">
+      </Swiper>
+      <indexnav></indexnav>
+      <index-main v-for="item in indexList" :key="item.specialid" :info="item"></index-main>
+        <div class="my-icp">
         <a
           class="record"
           href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011202006214"
@@ -17,7 +19,7 @@
         >
           <img
             class="img"
-            src="https://wechatapp.zhuishushenqi.com/mhd/201711/gongan.jpg"
+            v-lazy="`https://wechatapp.zhuishushenqi.com/mhd/201711/gongan.jpg`"
           />
           <div>沪公网安备 31011202006214号</div>
         </a>
@@ -26,6 +28,7 @@
           <br />网络文化经营许可证沪网文（2016）3206-227号
           <br />出版物经营许可证新出发沪批字第U7659号
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -37,6 +40,7 @@ import { getBanner, getIndex } from '../../api/cartoon'
 import indexMain from './components/main.vue'
 import indexnav from './components/indexnav.vue'
 import indexheader from './components/hrader.vue'
+import BScroll from 'better-scroll'
 export default {
   name: 'Home',
   components: {
@@ -90,6 +94,13 @@ export default {
     }).catch((err) => {
       alert('网络错误' + err)
     })
+  },
+  mounted () {
+    /*eslint-disable*/
+  this.bscroll=new BScroll(this.$refs.home,{
+    click:true
+  })
+   /* eslint-enable */
   }
 }
 </script>

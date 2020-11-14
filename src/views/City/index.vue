@@ -1,21 +1,20 @@
 <template>
    <div class = 'page-city'>
-     <header-type title='城市' :isShow="false"></header-type>
+     <header-type :title='`城市-${curCityName}`' :isShow="false"></header-type>
     <div class = 'city-main'>
-      <div class = 'left' ref = 'scrollLeft'>
-       <div>
-          <div>
-            <p>hjj</p>
+         <div class = 'left' ref = 'scrollLeft'>
+           <div>
+              <div v-for='(item, index) in list' :key='index' class = 'city-index-section' :ref='`section-${item.yin}`'>
+            <p>{{item.yin}}</p>
             <ul>
-              <li>vbcb</li>
-              <li>vbcb</li>
+              <li v-for='items in item.list' :key='items.cityId' @click="changeCity(items)">{{items.name}}</li>
             </ul>
           </div>
-       </div>
+           </div>
       </div>
       <div class = 'right'>
         <ul>
-          <li>fgdgd</li>
+          <li v-for='item in indexs' :key='item' @click='handler(item)'>{{item}}</li>
         </ul>
       </div>
     </div>
@@ -25,10 +24,82 @@
 <script>
 // import HeaderType from '~@/assets/components/HeaderType/index.vue'
 import HeaderType from '../../components/HeaderType/index.vue'
+import { City } from '@/api/city'
+import { mapMutations, mapGetters } from 'vuex'
+import BScroll from 'better-scroll'
 export default {
   name: 'City',
+  data () {
+    return {
+      cityList: []
+    }
+  },
   components: {
     HeaderType
+  },
+  created () {
+    this.Citys()
+    // console.log(this.$route)
+    // console.log(this.$store)
+  },
+  mounted () {
+  /*eslint-disable*/
+  this.bscroll=new BScroll(this.$refs.scrollLeft,{
+    click:true
+  })
+   /* eslint-enable */
+  },
+  methods: {
+    Citys () {
+      City().then(res => {
+        this.cityList = res.data.data.cities
+      })
+    },
+    handler (yin) {
+      // this.$refs.scrollLeft.scrollTop = this.$refs[`section-${yin}`][0].offsetTop
+      const target = this.$refs[`section-${yin}`][0]
+      this.bscroll.scrollTo(0, -target.offsetTop, 500)
+    },
+    ...mapMutations('city', ['SET_CITY']),
+    changeCity (city) {
+      this.SET_CITY(city)
+      // 设置完城市跳转首页
+      const redirect = this.$route.query.redirect || '/'
+      this.$router.replace(redirect)
+    }
+  },
+  computed: {
+    //   [
+    //       {
+    //           yin:'A',
+    //           arr:[{‘北京}，{上海}]
+    //       }，
+    //       {
+    //           yin：'B'，
+    //           arr:[{}]
+    //       }
+    //   ]
+    ...mapGetters('city', ['curCityName']),
+    list () {
+      const arr = []
+      this.cityList.forEach(item => {
+        const yin = item.pinyin.substring(0, 1).toUpperCase()
+        const index = arr.findIndex(item => item.yin === yin)
+        if (index > -1) {
+          // 找到了这个拼音开头
+          arr[index].list.push(item)
+        } else {
+          arr.push({
+            yin: yin,
+            list: [item]
+          })
+        }
+      })
+      return arr.sort((a, b) => a.yin.charCodeAt() - b.yin.charCodeAt())
+    },
+    indexs () {
+      return this.list.map(item => item.yin)
+    }
   }
 }
 </script>
@@ -47,6 +118,7 @@ export default {
   .left{
     flex: 1;
     height: 100%;
+    // overflow: auto;
     position: relative;
     .city-index-section{
       @include border-bottom;

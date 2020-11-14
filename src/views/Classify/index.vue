@@ -1,9 +1,11 @@
 <template>
   <div class='page-classify'>
      <header-type title='分类'></header-type>
-     <div class='main'>
-     <normall-type :types="typeList" @click='onChange'></normall-type>
-     <cartoon-list :list="list"></cartoon-list>
+     <div class='main' ref='classify'>
+      <div>
+          <normall-type :types="typeList" @click='onChange'></normall-type>
+          <cartoon-list :list="list"></cartoon-list>
+     </div>
      </div>
   </div>
 </template>
@@ -14,7 +16,7 @@ import normallType from '../../components/NormallHeader'
 import cartoonList from '../../components/CartoonList'
 import { getType, getTypeLists } from '../../api/cartoon'
 import { unformat } from '../../apiHelp'
-
+import BScroll from 'better-scroll'
 export default {
   name: 'Classify',
   data () {
@@ -77,6 +79,13 @@ export default {
     await this.getType()
     // console.log(this.typeList)
     this.getTypeLists(this.typeList[0].targetargument)
+  },
+  mounted () {
+  /*eslint-disable*/
+  bscroll=new BScroll(this.$refs.classify,{
+    click:true
+  })
+   /* eslint-enable */
   }
 
 }
@@ -89,7 +98,7 @@ export default {
   height: 100%;
   .main{
     flex: 1;
-    overflow-y: auto;
+     overflow-y: auto;
   }
 }
 </style>

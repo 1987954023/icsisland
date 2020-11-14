@@ -11,21 +11,21 @@
     </div>
     <div v-if="info.comicsviewtype===1" :class="`recommend-type-1`">
         <div class="item" v-for="item in info.comicslist" :key="item.bigbook_id">
-            <img class="item-pic" :src="item.extension&& JSON.parse(item.extension).xsyzfx">
+            <img class="item-pic" v-lazy="item.extension&& JSON.parse(item.extension).xsyzfx">
             <p class="item-name font-28">{{item.bigbook_name}}</p>
             <p class="item-text font-24">{{item.extension&& JSON.parse(item.extension).recommendwords}}</p>
         </div>
     </div>
        <div v-if="info.comicsviewtype===5" :class="`recommend-type-5`">
         <div class="item" v-for="item1 in info.comicslist" :key="item1.bigbook_id">
-            <img class="item-pic" :src="item1.coverurl">
+            <img class="item-pic" v-lazy="item1.coverurl">
             <p class="item-title font-28">{{item1.bigbook_name}}</p>
             <p class="item-text font-24">{{item1.key_name}}</p>
         </div>
     </div>
      <div v-if="info.comicsviewtype===3" :class="`recommend-type-3`">
         <div class='item' v-for="(item,childIndex) in info.comicslist" :key="item.bigbook_id">
-            <img class="item-pic" :src="JSON.parse(item.extension).scfk344_202">
+            <img class="item-pic" v-lazy="JSON.parse(item.extension).scfk344_202">
             <div class="ranking-group">
                 <div :class="`item-ranking item-ranking-${childIndex + 1}`"></div>
 
