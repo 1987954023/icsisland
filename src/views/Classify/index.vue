@@ -50,7 +50,7 @@ export default {
     },
     getType () {
       return getType().then((res) => {
-        console.log(res)
+        // console.log(res)
         if (res.code === 200) {
           this.typeList = res.info
         } else {
@@ -82,7 +82,7 @@ export default {
   },
   mounted () {
   /*eslint-disable*/
-  bscroll=new BScroll(this.$refs.classify,{
+  const bscroll=new BScroll(this.$refs.classify,{
     click:true
   })
    /* eslint-enable */

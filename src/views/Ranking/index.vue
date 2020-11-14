@@ -47,12 +47,12 @@ export default {
       getRank(object).then(res => {
         if (res.code === 200) {
           this.rankList = JSON.parse(unformat(res.info)).ranklist
-          console.log(this.rankList)
+          // console.log(this.rankList)
         } else {
           alert(res.code_msg)
         }
       }).catch(err => {
-        console.log('网络错误' + err)
+        alert('网络错误' + err)
       })
     }
   },

@@ -85,7 +85,7 @@ export default {
       alert('网络异常' + err)
     })
     getIndex().then((res) => {
-      console.log(res)
+      // console.log(res)
       if (res.code === 200) {
         this.indexList = res.info
       } else {

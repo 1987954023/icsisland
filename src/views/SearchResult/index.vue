@@ -33,7 +33,7 @@ export default {
   methods: {
     searchbookauthors (payload) {
       searchbookauthor(payload).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.code === 200) {
           this.searchbookList = res.info
         } else {
@@ -46,7 +46,7 @@ export default {
   },
   created () {
     this.searchbookauthors(this.$route.query.name)
-    console.log(this.$route.query.name)
+    // console.log(this.$route.query.name)
   },
   mounted () {
   /*eslint-disable*/
