@@ -67,7 +67,7 @@ export default {
     flex: 1;
     padding-left: 10px;
     margin: 10px 0px;
-     overflow: auto;
+    overflow: auto;
     .list-item{
       display: flex;
       box-sizing: border-box;
