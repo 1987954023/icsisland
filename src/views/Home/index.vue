@@ -2,7 +2,7 @@
   <div class = 'page-home' >
     <router-link to='/city' class='font-24' :style="{color:'red',fontWeight:'bold'}"  >{{this.$store.getters['city/curCityName']}}</router-link>
     <indexheader></indexheader>
-    <div class='main' ref='home' v-gotop>
+    <div class='main' ref='home' >
       <div>
       <Swiper  :autoplay="2000" :loop="true" class="swiper" v-if="list.length>0">
       <Swiperitem v-for="item in list" :key="item.id">
@@ -23,7 +23,7 @@
           />
           <div>沪公网安备 31011202006214号</div>
         </a>
-        <div class="licence" v-lint='`shai`'>
+        <div class="licence">
           增值电信业务经营许可证沪B2-20170022
           <br />网络文化经营许可证沪网文（2016）3206-227号
           <br />出版物经营许可证新出发沪批字第U7659号
@@ -103,9 +103,21 @@ export default {
    /* eslint-enable */
   },
   directives: {
-    lint: (el, { value }) => {
-      console.log(value, el)
-    }
+    // gotop: (el, { value }) => {
+    //   const Gotop = Vue.extend(gotop)
+    //   const instance = new Gotop()
+    //   instance.$mount()
+    //   el.appendChild(instance.$el)
+    //   el.addEventListener('scroll', () => {
+    //     if (el.scrollTop >= el.clientHeight) {
+    //       instance.visible = true
+    //     } else {
+    //       instance.visible = false
+    //     }
+    //   })
+    //   console.log(instance.$el, 1)
+    //   console.log(value, el)
+    // }
   }
 }
 

@@ -1,49 +1,53 @@
 <template>
-    <div class="page-search">
+  <div class="page-search">
     <header class="search-header">
-      <div class="header-back" @click='$router.back()'></div>
+      <div class="header-back" @click="$router.back()"></div>
       <div class="header-search">
         <span class="icon-search"></span>
-        <input
-          class="search-input font-24"
-          type="search" placeholder="漫画名丨作者 ^_^"
-          v-model="model"
-          />
+        <input class="search-input font-24" type="search" placeholder="漫画名丨作者 ^_^" v-model="model" />
       </div>
-      <div class="header-btn font-30" @click='seveSearch(model)'>搜索</div>
+      <div class="header-btn font-30" @click="seveSearch(model)">搜索</div>
     </header>
 
     <div class="search-main">
-      <template v-if='!model'>
+      <template v-if="!model">
         <!-- 热门搜索 begin -->
-        <section class="search-recommend" >
+        <section class="search-recommend">
           <div class="title font-26">
             <span class="title-title">大家都在搜</span>
-            <span class="title-btn" @click='everyLists'>
+            <span class="title-btn" @click="everyLists">
               <span class="icon-refresh"></span>刷新
             </span>
           </div>
 
           <div class="recommend-content font-28">
-            <span class='recommend-item' v-for='item in everyList' :key='item.id' @click='seveSearch(item.keyword)'>
-              {{item.keyword}}
-            </span>
+            <span
+              class="recommend-item"
+              v-for="item in everyList"
+              :key="item.id"
+              @click="seveSearch(item.keyword)"
+            >{{item.keyword}}</span>
           </div>
         </section>
         <!-- 热门搜索 end -->
 
         <!-- 最近搜索 begin -->
-        <section class="search-history" v-show='getSearchs.length>0'>
+        <section class="search-history" v-show="getSearchs.length>0">
           <div class="title font-26">
             <span class="title-title">最近搜索</span>
-            <span class="title-btn" @click='removeSearch'>
+            <span class="title-btn" @click="removeSearch">
               <span class="icon-del"></span>
             </span>
           </div>
           <div class="history-content font-28">
-            <span class="history-item" v-for='(item,index) in getSearchs' :key='index' @click='seveSearch(item)' >
+            <span
+              class="history-item"
+              v-for="(item,index) in getSearchs"
+              :key="index"
+              @click="seveSearch(item)"
+            >
               <span class="icon-time"></span>
-             {{item}}
+              {{item}}
             </span>
           </div>
         </section>
@@ -51,11 +55,16 @@
       </template>
       <template v-else>
         <!-- 搜索结果面板 begin -->
-        <section class="search-content" >
-          <p class="item font-28" v-for="(item,index) in searchindex" :key='index' @click='seveSearch(item)'>{{item}}</p>
+        <section class="search-content">
+          <p
+            class="item font-28"
+            v-for="(item,index) in searchindex"
+            :key="index"
+            @click="seveSearch(item)"
+          >{{item}}</p>
         </section>
         <!-- 搜索结果面板 end -->
-        </template>
+      </template>
     </div>
   </div>
 </template>
@@ -75,27 +84,36 @@ export default {
   },
   methods: {
     everyLists () {
-      everyList().then(res => {
-        // console.log(res)
-        if (res.code === 200) {
-          this.everyList = res.info.hotWordsList
-          // console.log(this.everyList)
-        } else {
-          alert(res.code_msg)
-        }
-      }).catch(err => {
-        alert('网络错误' + err)
-      })
+      everyList()
+        .then(res => {
+          // console.log(res)
+          if (res.code === 200) {
+            this.everyList = res.info.hotWordsList
+            // console.log(this.everyList)
+          } else {
+            alert(res.code_msg)
+          }
+        })
+        .catch(err => {
+          alert('网络错误' + err)
+        })
     },
     seveSearch (name) {
       if (!name) {
         return
       }
       // 1.取出之前村过得内容
-      const tep = window.localStorage.getItem('search') ? JSON.parse(window.localStorage.getItem('search')) : []
+      const tep = window.localStorage.getItem('search')
+        ? JSON.parse(window.localStorage.getItem('search'))
+        : []
       // 判断之前是否存储过 indexof findIndex includes(直接判断元素是否存在)
       if (tep.includes(name)) {
-        this.$router.push({ path: `/searchResult?name=${name}` })
+        this.$router.push({
+          path: '/searchResult',
+          query: {
+            name: name
+          }
+        })
         return
       }
       // 将name存入数组中
@@ -116,15 +134,17 @@ export default {
       window.localStorage.removeItem('search')
     },
     searchIndexs (name) {
-      searchindex(name).then(res => {
-        if (res.code === 200) {
-          this.searchindex = res.info
-        } else {
-          alert(res.code_msg)
-        }
-      }).catch(err => {
-        alert('网络错误' + err)
-      })
+      searchindex(name)
+        .then(res => {
+          if (res.code === 200) {
+            this.searchindex = res.info
+          } else {
+            alert(res.code_msg)
+          }
+        })
+        .catch(err => {
+          alert('网络错误' + err)
+        })
     }
   },
   created () {
