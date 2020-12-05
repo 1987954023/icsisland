@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import './assets/styles/base.scss'
 import VueLazyload from 'vue-lazyload'
+import 'vant/lib/index.css'
 
 Vue.use(VueLazyload, {
   preLoad: 1.3,

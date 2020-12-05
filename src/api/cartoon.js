@@ -43,7 +43,7 @@ export const getType = () => {
   })
 }
 // 获取分类上面类型对应的下面的数据
-export const getTypeLists = (subject, pageno = 1, pagesize = 20) => {
+export const getTypeLists = (subject, pageno, pagesize = 20) => {
   return request({
     url: '/api/comic_v2/comicsfilterlist_v2',
     method: 'POST',
@@ -80,7 +80,7 @@ export const getRank = (ranktype, pageno = 1, pagesize = 20) => {
 // 处理Vip的数据
 // https://mhd.zhuishushenqi.com/comic_v2/comicsfilterlist_v2?apptype=8&appversion=1.0&channel=web-app
 // "pageno":1,"pagesize":15,"special":892
-export const getVip = (special = 892, pageno = 1, pagesize = 15) => {
+export const getVip = (pageno, special = 892, pagesize = 15) => {
   return request({
     url: '/api/comic_v2/comicsfilterlist_v2',
     method: 'POST',

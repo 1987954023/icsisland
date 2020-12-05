@@ -36,6 +36,8 @@ import HeaderType from '../../components/HeaderType/index.vue'
 import { City } from '@/api/city'
 import { mapMutations, mapGetters } from 'vuex'
 import BScroll from 'better-scroll'
+// import { List } from 'vant'
+// Vue.use(List)
 export default {
   name: 'City',
   data () {
